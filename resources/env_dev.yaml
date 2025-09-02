@@ -1,0 +1,13 @@
+ApplicationEnv:
+  url_base_bitbucket: ${URL_BASE_BITBUCKET}
+  api_bitbucket_all_repositories: ${API_BITBUCKET_ALL_REPOSITORIES}
+  api_bitbucket_branches_exist: ${API_BITBUCKET_BRANCHES_EXIST}
+  api_bitbucket_get_repository_angular: ${API_BITBUCKET_GET_REPOSITORY_ANGULAR}
+  api_bitbucket_get_repository: ${API_BITBUCKET_GET_REPOSITORY}
+  api_bitbucket_get_path_branch: ${API_BITBUCKET_GET_PATH_BRANCH}
+  api_bitbucket_get_version: ${API_BITBUCKET_GET_VERSION}
+  api_bitbucket_get_version_with_path: ${API_BITBUCKET_VERSION_WITH_PATH}
+  authorization_token: ${BITBUCKET_AUTHORIZATION_TOKEN}
+  path_local_repo: ${PATH_LOCAL_REPO}
+  path_file_excel: ${PATH_FILE_EXCEL}
+  history_file: ${HISTORY_FILE_NAME}

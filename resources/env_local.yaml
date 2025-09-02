@@ -1,0 +1,13 @@
+ApplicationEnv:
+  url_base_bitbucket: https://user_rep@bitbucket.org/scadevelopers/name_rep
+  api_bitbucket_all_repositories: https://api.bitbucket.org/2.0/workspaces/scadevelopers/projects?pagelen=100&page=1
+  api_bitbucket_branches_exist: https://api.bitbucket.org/2.0/repositories/scadevelopers/name_rep$/refs/branches?q=name=branch$
+  api_bitbucket_get_repository_angular: https://api.bitbucket.org/2.0/repositories/scadevelopers?q=project.key=key$AND full_name~"-angular-"&pagelen=100&page=1
+  api_bitbucket_get_repository: https://api.bitbucket.org/2.0/repositories/scadevelopers?q=project.key=key$&pagelen=100&page=1
+  api_bitbucket_get_path_branch: https://api.bitbucket.org/2.0/repositories/scadevelopers/name_rep$/src/branch$/
+  api_bitbucket_get_version: https://api.bitbucket.org/2.0/repositories/scadevelopers/rep_name/src/branch$/file$
+  api_bitbucket_get_version_with_path: https://api.bitbucket.org/2.0/repositories/scadevelopers/name_rep$/src/branch$/path$/pom.xml
+  authorization_token: Basic amF0b2Q6QVRCQmRyTFRDWXRNWnVyZnBLVnJwUjg4UWRLZjM5MEIyMjM4
+  path_local_repo: c:\\tmp_rep
+  path_file_excel: c:\\tmp_rep
+  history_file: history_file.txt

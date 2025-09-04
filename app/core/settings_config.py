@@ -2,7 +2,7 @@
 import os
 import yaml
 from functools import lru_cache
-from app.core.enviroment_config import AppConfig
+from app.core.environment_config import AppConfig
 from pathlib import Path
 import re
 

@@ -1,3 +1,4 @@
 iam_gateway_env:
   key_jwt_secret: d94f1a0a5f84c6a3b718ea7b0a0e19e7a3fbd71a2a5b0c1f66b928dd8d8e4a1f
   key_recaptcha_secret: 6Lf8hLwrAAAAAMSaecnrZZByq-J26VsnV3vagsHJ
+  key_recaptcha_int_secret: 6Lf8hLwrAAAAAAh7WjwO8i44POTon6neRC1xP3H6

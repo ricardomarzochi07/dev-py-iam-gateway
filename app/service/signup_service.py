@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
-from app.dto.signup_dto import SignupInitDTO
+from app.schemas.signup_schema_response import SignupResponse
+from app.schemas.signupsubmit_schema_request import SignupSubmitRequest
 
 
 class SignupService(ABC):
@@ -14,5 +15,9 @@ class SignupService(ABC):
         pass
 
     @abstractmethod
-    def orchestrate_signup_init(self) -> SignupInitDTO:
+    def validate_signup(self, req: SignupSubmitRequest, cookies: dict) -> bool:
+        pass
+
+    @abstractmethod
+    def orchestrate_signup_init(self) -> SignupResponse:
         pass

@@ -2,5 +2,7 @@ from pydantic import BaseModel
 
 
 class SignupResponse(BaseModel):
-    nonce: str
-    captchaSiteKey: str
+    jwt_nonce: str
+    jwt_csrf: str
+    captcha_token: str
+

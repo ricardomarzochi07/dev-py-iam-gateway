@@ -7,13 +7,12 @@ import os
 
 app = FastAPI()
 setup_fastapi_logging(app)
-
 app.include_router(gateway_iam_controller.router, prefix="/gateway_iam", tags=["gateway-iam"])
 
 # Configuración CORS si tu frontend está en otro dominio
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://tu-frontend.com"],  # ajustar según deployment
+    allow_origins=["http://localhost:3001"],  # ajustar según deployment
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

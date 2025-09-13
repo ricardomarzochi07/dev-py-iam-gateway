@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/dev-py-iam-gateway.iml" filepath="$PROJECT_DIR$/.idea/dev-py-iam-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dev-py-signup-gateway.iml" filepath="$PROJECT_DIR$/.idea/dev-py-signup-gateway.iml" />
     </modules>
   </component>
 </project>

@@ -22,7 +22,7 @@ class CookiesConfig:
             value=csrf_token,
             httponly=True,
             samesite="strict",
-            secure=True,
+            secure=False,
             max_age=120)
         CookiesConfig.set_cookie(response, csrf_cookie)
 

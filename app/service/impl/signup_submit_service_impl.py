@@ -1,17 +1,14 @@
-from app.client.oidc_gateway_service.oidc_schema_request import OidcRequestSchema
 from app.client.oidc_gateway_service.oidc_service_client import OidcGatewayServiceClient
-from app.client.signup_core_service.signup_core_request_schema import SignupCoreRequestSchema
-from app.client.signup_core_service.signup_core_service_client import SignupCoreServiceClient
 from app.core.iam_constants import IAMConstants
-from app.schemas.signup_schema_response import SignupResponse
 from app.schemas.signupsubmit_schema_request import SignupSubmitRequest
 from app.service.signup_submit_service import SignupSubmitService
-import requests
 import jwt
 from buddybet_logmon_common.logger import get_logger
 from app.core.environment_config import AppConfig
 from fastapi import HTTPException
 from jose import jwt, JWTError
+from buddybet_transactionmanager.http.transaction_http import HttpResponseSchema
+
 
 
 class SignupSubmitServiceImpl(SignupSubmitService):
@@ -19,32 +16,24 @@ class SignupSubmitServiceImpl(SignupSubmitService):
 
     def __init__(self, config: AppConfig):
         self.env_var = config.signup_gateway_env
-        self.oidc_service = OidcGatewayServiceClient(config)
-        self.signup_core_service = SignupCoreServiceClient(config)
 
-    def orchestrate_signup_submit(self, data: SignupSubmitRequest, cookies: dict) -> SignupResponse:
+    def orchestrate_signup_submit(self, data: SignupSubmitRequest, cookies: dict) -> HttpResponseSchema:
         self.logger.info("Execute Request - orchestrate_signup_submit")
+        oidc_service = OidcGatewayServiceClient()
         try:
             # (1) Validate tokens
             if self.validate_signup(data.jwt_nonce, data.jwt_csrf, data.captcha_token, cookies):
-                # (2) Call - Get Token in OIDC_Gateway_Service > WSO2
-                print("========== VALIDACION OK =============")
-                oidcRequest = OidcRequestSchema(
-                    jwt_nonce=data.jwt_nonce,
-                    token_type=IAMConstants.TOKEN_TYPE,
-                    expires_in=120
-                )
-                print("========== BODY  OK =============", oidcRequest.jwt_nonce)
-
-                oidcResponse = self.oidc_service.get_token_oidc_idp(oidcRequest)
-                if oidcResponse is not None:
-                    # (3) Call - Register User in Signup_Core_Service
-                    print(" oidcResponse.access_token ", oidcResponse.access_token)
-
-                    self.register_user_signup_core_service(data, oidcResponse.access_token)
+                # (2) Call - Get OIDC to Register User in IDP
+                response = oidc_service.post_register_user(url=self.env_var.oidc_service_url,body=data)
+                return  response
         except Exception as e:
-            self.logger.error(f"Error Execute Request - orchestrate_signup_submit:", exc_info=True)
-            return False
+            self.logger.error(f"Error register_user_idp: {e}")
+            return HttpResponseSchema(
+                status_response=False,
+                status_code=500,
+                data=None,
+                message=f"Unhandled exception: {str(e)}"
+            )
 
     def validate_signup(self, internal_token: str, jwt_csrf: str, captcha_token: str, cookies: dict) -> bool:
         self.logger.info("Execute Request - validate_signup")
@@ -82,18 +71,3 @@ class SignupSubmitServiceImpl(SignupSubmitService):
         """
         return True
 
-    def register_user_signup_core_service(self, data: SignupSubmitRequest, access_token: str):
-        self.logger.info("Execute Request - validate_signup")
-        try:
-            # Crear instancia de SignupCoreServiceSchema solo con atributos comunes
-            signup_core_schema = SignupCoreRequestSchema(
-                **data.dict(
-                    include=SignupCoreRequestSchema.model_fields.keys()  # incluye solo campos comunes
-                )
-            )
-            print(" signup_core_schema ", signup_core_schema    )
-
-            return self.signup_core_service.post_register_user(signup_core_schema, access_token)
-        except Exception as e:
-            self.logger.error(f"Error OIDC_Service: {e}")
-        return None

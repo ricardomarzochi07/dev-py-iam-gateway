@@ -7,6 +7,7 @@ from app.schemas.signup_schema_response import SignupResponse
 from app.schemas.signupsubmit_schema_request import SignupSubmitRequest
 from app.service.impl.signup_init_service_impl import SignupInitServiceImpl
 from app.service.impl.signup_submit_service_impl import SignupSubmitServiceImpl
+from buddybet_transactionmanager.http.transaction_http import HttpResponseSchema
 
 router = APIRouter()
 logger = get_logger()
@@ -43,6 +44,7 @@ async def signup_init(response: Response, config: AppConfig = Depends(load_confi
 
 @router.post("/signup/submit",
              response_model_exclude_none=True,
+             response_model=HttpResponseSchema,
              summary="Valida Token JWT",
              responses={200: {"description": "Success", },
                         404: {"description": "Not Found.", }, }, )
@@ -51,9 +53,16 @@ async def signup_submit(signup_request: SignupSubmitRequest,
                         request: Request,
                         config: AppConfig = Depends(load_config)):
     logger.info("Execute Request - signup_submit")
-    signupService = SignupSubmitServiceImpl(config)
-    valid = signupService.orchestrate_signup_submit(signup_request, request.cookies)
-    if not valid:
-        raise HTTPException(status_code=400, detail="Validation failed")
-    return {"message": "Signup successful"}
+    try:
+        signupService = SignupSubmitServiceImpl(config)
+        response = signupService.orchestrate_signup_submit(signup_request, request.cookies)
+        return response
+    except Exception as e:
+        logger.error(f"Error Execute Request - internal_token:", exc_info=True)
+        return HttpResponseSchema(
+            status_response=False,
+            status_code=500,
+            data=None,
+            message=f"Unhandled exception: {str(e)}"
+        )
 

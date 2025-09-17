@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.v1.endpoints import signup_api
+from app.api import signup_api
 from buddybet_logmon_common.fastapi_logger import setup_fastapi_logging
 from fastapi.middleware.cors import CORSMiddleware
 

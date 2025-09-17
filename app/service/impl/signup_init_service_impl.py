@@ -13,8 +13,6 @@ class SignupInitServiceImpl(SignupInitService):
 
     def __init__(self, config: AppConfig):
         self.env_var = config.signup_gateway_env
-        self.oidc_client = OidcGatewayServiceClient(config)
-
 
     def orchestrate_signup_init(self) -> SignupResponse:
         self.logger.info("Execute Request - orchestrate_signup_init")
@@ -36,8 +34,9 @@ class SignupInitServiceImpl(SignupInitService):
     def generate_token_nonce(self) -> str:
         self.logger.info("Execute Request - generate_token_nonce")
         try:
-            jwt_payload_nonce = self.oidc_client.get_token_oidc_internal()
-            return jwt_payload_nonce.jwt_nonce
+            oidc_client = OidcGatewayServiceClient()
+            oidc_response = oidc_client.get_oidc_token_internal(self.env_var.oidc_service_url)
+            return oidc_response.jwt_nonce
         except Exception as e:
             self.logger.error("Error Execute Request - generate_token_nonce", exc_info=True)
             raise HTTPException(status_code=500, detail="Error internal")

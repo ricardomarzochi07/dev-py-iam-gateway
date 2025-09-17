@@ -1,10 +1,9 @@
 signup_gateway_env:
   key_recaptcha_secret: 6Lf8hLwrAAAAAMSaecnrZZByq-J26VsnV3vagsHJ
   key_recaptcha_int_secret: 6Lf8hLwrAAAAAAh7WjwO8i44POTon6neRC1xP3H6
-  oidc_idp_token_service_url: http://localhost:8002/oidc_gateway/oidc/idp/token
-  oidc_internal_token_service_url: http://localhost:8002/oidc_gateway/oidc/internal/token
-  signup_register_service_url: http://localhost:8002/signup_core/api/user/register
   recaptcha_google_service_url: https://www.google.com/recaptcha/api/siteverify
+  oidc_service_url: http://localhost:8002/oidc_gateway
+
 
 
 

@@ -15,7 +15,7 @@ class OidcGatewayServiceClient:
         try:
             client = HttpClient(url, cert=None, verify=None)
             return client.post(path=OidcPaths.CREATE_USER,
-                               json_data=body.dict,
+                               json_data=body.dict(),
                                headers=headers)
         except Exception as e:
             self.logger.error("Unexpected error while preparing or sending request", exc_info=True)
@@ -32,8 +32,8 @@ class OidcGatewayServiceClient:
         try:
             client = HttpClient(url, cert=None, verify=None)
             response = client.get(path=OidcPaths.TOKEN_INT,
-                              params=None,
-                              headers=headers)
+                                  params=None,
+                                  headers=headers)
             return OidcTokenInternalResponse(**response.data)
         except Exception as e:
             self.logger.error("Execute Request - get_oidc_token_internal", exc_info=True)

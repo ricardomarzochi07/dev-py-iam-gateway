@@ -4,7 +4,7 @@ class IAMConstants:
     TOKEN_TYPE = "Bearer"
     RETRIES = 3
     DELAY = 2.0
-    AUDIENCE = "REGISTER-USER"
+    AUDIENCE = "SignupUser"
     LOCAL_ENV = "local"
     DEV_ENV = "dev"
     PRE_ENV = "pre"

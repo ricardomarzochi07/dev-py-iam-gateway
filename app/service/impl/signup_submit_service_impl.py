@@ -25,7 +25,7 @@ class SignupSubmitServiceImpl(SignupSubmitService):
             if self.validate_signup(data.jwt_nonce, data.jwt_csrf, data.captcha_token, cookies):
                 # (2) Call - Get OIDC to Register User in IDP
                 response = oidc_service.post_register_user(url=self.env_var.oidc_service_url,body=data)
-                return  response
+                return response
         except Exception as e:
             self.logger.error(f"Error register_user_idp: {e}")
             return HttpResponseSchema(

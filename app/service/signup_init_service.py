@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 from app.schemas.signup_schema_response import SignupResponse
-from app.schemas.signupsubmit_schema_request import SignupSubmitRequest
 
 
 class SignupInitService(ABC):

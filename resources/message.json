@@ -1,0 +1,68 @@
+{
+  "invalid_user_data": {
+    "en": "The user data provided is invalid.",
+    "es": "Los datos proporcionados del usuario no son válidos.",
+    "fr": "Les données fournies pour l'utilisateur ne sont pas valides."
+  },
+  "resource_not_found": {
+    "en": "The requested resource could not be found.",
+    "es": "No se pudo encontrar el recurso solicitado",
+    "fr": "La ressource demandée est introuvable.."
+  },
+  "invalid_generation_token": {
+    "en": "It was not possible to generate the token. Please try again later.",
+    "es": "No fue posible generar el token. Por favor, inténtalo de nuevo más tarde..",
+    "fr": "Il n'a pas été possible de générer le jeton. Veuillez réessayer plus tard."
+  },
+  "register_user_success": {
+    "en": "User registered successfully.",
+    "es": "Usuario registrado con éxito",
+    "fr": "Utilisateur enregistré avec succès",
+    "pt": "Usuário registrado com sucesso"
+  },
+  "generation_token": {
+    "en": "Token successfully.",
+    "es": "Token generado con suceso",
+    "fr": "Token generado con suceso ",
+    "pt": "Token generado com sucesso"
+  },
+  "invalid_token": {
+    "en": "Your session has expired. Please log in again to continue.",
+    "es": "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.",
+    "fr": "Votre session a expiré. Veuillez vous reconnecter pour continuer.",
+    "pt": "Sua sessão expirou. Por favor, faça login novamente para continuar."
+  },
+  "invalid_csrf": {
+    "en": "CSRF is invalid.",
+    "es": "CSRF no es válido.",
+    "fr": "Le CSRF est invalide."
+  },
+  "invalid_captcha": {
+    "en": "Captcha is invalid.",
+    "es": "Captcha no es válido.",
+    "fr": "Captcha est invalide."
+  },
+    "register_user_fail": {
+    "en": "User registration failed. Please verify your information and try again",
+    "es": "El registro del usuario ha fallado. Verifica tu información e inténtalo de nuevo.",
+    "fr": "L'inscription de l'utilisateur a échoué. Veuillez vérifier vos informations et réessayer"
+  },
+  "external_service_error": {
+    "en": "The system was unable to communicate with an external service. Please try again later or contact support if the problem persists",
+    "es": "El sistema no pudo comunicarse con un servicio externo. Inténtalo de nuevo más tarde o contacta con soporte si el problema continúa",
+    "fr": "Le système n’a pas pu communiquer avec un service externe. Veuillez réessayer plus tard ou contacter le support si le problème persiste"
+  },
+  "captch_token": {
+    "en": "Invalid CAPTCHA. Please try again.",
+    "es": "CAPTCHA inválido. Por favor, inténtalo de nuevo.",
+    "fr": "CAPTCHA invalide. Veuillez réessayer.",
+    "pt": "CAPTCHA inválido. Por favor, tente novamente."
+  },
+  "user_already_exists": {
+    "en": "The user is already registered in the system.",
+    "es": "El usuario ya está registrado en el sistema.",
+    "fr": "L'utilisateur est déjà enregistré dans le système.",
+    "pt": "O usuário já se encontra cadastrado no sistema."
+ }
+
+}

@@ -11,7 +11,3 @@ class SignupSubmitService(ABC):
     def orchestrate_signup_submit(self, req: SignupSubmitRequest, cookies: dict) -> HttpResponseSchema:
         pass
 
-    @abstractmethod
-    def validate_signup(self, jwt_nonce: str , jwt_csrf: str, captcha_token: str, cookies: dict) -> bool:
-        pass
-

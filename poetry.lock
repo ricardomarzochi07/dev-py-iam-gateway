@@ -33,6 +33,36 @@ typing_extensions = {version = ">=4.5", markers = "python_version < \"3.13\""}
 trio = ["trio (>=0.26.1)"]
 
 [[package]]
+name = "babel"
+version = "2.17.0"
+description = "Internationalization utilities"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "babel-2.17.0-py3-none-any.whl", hash = "sha256:4d0b53093fdfb4b21c92b5213dba5a1b23885afa8383709427046b21c366e5f2"},
+    {file = "babel-2.17.0.tar.gz", hash = "sha256:0c54cffb19f690cdcc52a3b50bcbf71e07a808d1c80d549f2459b9d2cf0afb9d"},
+]
+
+[package.extras]
+dev = ["backports.zoneinfo ; python_version < \"3.9\"", "freezegun (>=1.0,<2.0)", "jinja2 (>=3.0)", "pytest (>=6.0)", "pytest-cov", "pytz", "setuptools", "tzdata ; sys_platform == \"win32\""]
+
+[[package]]
+name = "buddybet-i18n"
+version = "0.6.0"
+description = "Language internationalization library"
+optional = false
+python-versions = ">=3.12"
+groups = ["main"]
+files = [
+    {file = "buddybet_i18n-0.6.0-py3-none-any.whl", hash = "sha256:3c34fa69c126271f3f14fa8db0c14f326b3f085aed8c53ee186e8f7262181d68"},
+    {file = "buddybet_i18n-0.6.0.tar.gz", hash = "sha256:9f36f011a43e43bc3c1d299ee9ffc5f819a6b994ed031735558e030679d051dd"},
+]
+
+[package.dependencies]
+i18n = ">=0.2,<0.3"
+
+[[package]]
 name = "buddybet-logmon-common"
 version = "0.1.0"
 description = "Librería de logging en formato JSON con integración para FastAPI"
@@ -48,14 +78,14 @@ fastapi = ">=0.116.1,<0.117.0"
 
 [[package]]
 name = "buddybet-transactionmanager"
-version = "0.2.1"
+version = "0.6.1"
 description = "Lib for manager Transaction HTTPs"
 optional = false
 python-versions = ">=3.12"
 groups = ["main"]
 files = [
-    {file = "buddybet_transactionmanager-0.2.1-py3-none-any.whl", hash = "sha256:e89881c861ba9262a08400d690c63f1f167d3a0faebee1315f67ddaf5c8c1b54"},
-    {file = "buddybet_transactionmanager-0.2.1.tar.gz", hash = "sha256:c5ba52f18bedc7a70c6fe1551052d13be7764ebff6fbab51781450eb65b0f507"},
+    {file = "buddybet_transactionmanager-0.6.1-py3-none-any.whl", hash = "sha256:f8196b5ba0ea6602549ad3443ec0556e08be5c92b82c4f0db28e4cfa7c387ebe"},
+    {file = "buddybet_transactionmanager-0.6.1.tar.gz", hash = "sha256:46db571c46965f487f3ba07a40da0aaf0bddb4752342b492e50b59e27416e469"},
 ]
 
 [package.dependencies]
@@ -261,6 +291,21 @@ standard = ["email-validator (>=2.0.0)", "fastapi-cli[standard] (>=0.0.8)", "htt
 standard-no-fastapi-cloud-cli = ["email-validator (>=2.0.0)", "fastapi-cli[standard-no-fastapi-cloud-cli] (>=0.0.8)", "httpx (>=0.23.0)", "jinja2 (>=3.1.5)", "python-multipart (>=0.0.18)", "uvicorn[standard] (>=0.12.0)"]
 
 [[package]]
+name = "i18n"
+version = "0.2"
+description = "Simplify the development of internationalized applications"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "i18n-0.2.tar.gz", hash = "sha256:a6206172b184887c57a5a209d8be7aa5f70d36a7a66aa7506754e9e377d2fb4c"},
+]
+
+[package.dependencies]
+babel = "*"
+py = "*"
+
+[[package]]
 name = "idna"
 version = "3.10"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -274,6 +319,18 @@ files = [
 
 [package.extras]
 all = ["flake8 (>=7.1.1)", "mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2)"]
+
+[[package]]
+name = "py"
+version = "1.11.0"
+description = "library with cross-python path, ini-parsing, io, code, log facilities"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+groups = ["main"]
+files = [
+    {file = "py-1.11.0-py2.py3-none-any.whl", hash = "sha256:607c53218732647dff4acdfcd50cb62615cedf612e72d1724fb1a0cc6405b378"},
+    {file = "py-1.11.0.tar.gz", hash = "sha256:51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719"},
+]
 
 [[package]]
 name = "pyasn1"
@@ -562,4 +619,4 @@ typing-extensions = ">=4.12.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "cd49c6695a9ba327acaa857d670fe0d91817ac7dfa9cde0a5c601556c82c27d2"
+content-hash = "b7dc36fdf262d2ceacadb4a60210ef52819c037b33bc9f8848c888797a85bc13"

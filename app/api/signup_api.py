@@ -15,7 +15,6 @@ router = APIRouter()
 logger = get_logger()
 
 
-
 @router.get("/signup/init",
             response_model_exclude_none=True,
             summary="Esta API permite generar JWT",
@@ -42,4 +41,6 @@ async def signup_submit(signup_request: SignupSubmitRequest,
                         config: AppConfig = Depends(load_config)):
     logger.info("Execute Request - signup_submit")
     signupService = SignupSubmitServiceImpl(config)
-    return signupService.orchestrate_signup_submit(signup_request, request.cookies)
+    response = signupService.orchestrate_signup_submit(signup_request, request.cookies)
+    print("RESPONSE ", response)
+    return response

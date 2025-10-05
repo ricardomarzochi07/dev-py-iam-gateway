@@ -22,7 +22,9 @@ class OidcGatewayServiceClient:
                                    json_data=body.dict(),
                                    headers=headers)
 
-            if not response.status_response:
+            if response.status_response:
+                return response
+            elif not response.status_response:
                 if response.status_code == 400:
                     raise InvalidUserDataError()
                 elif response.status_code == 404:

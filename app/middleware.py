@@ -1,9 +1,6 @@
-from buddybet_transactionmanager.schemas.http_response_schema import HttpResponseSchema
 from fastapi import FastAPI, Request
 from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import JSONResponse
-
-from app.api import signup_api
+from app.api.iam import signin_api, signup_api
 from buddybet_logmon_common.fastapi_logger import setup_fastapi_logging
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.exceptions_handlers import register_exception_handlers
@@ -19,7 +16,8 @@ register_exception_handlers(app)
 setup_fastapi_logging(app)
 
 # Incluir router de signUp
-app.include_router(signup_api.router, prefix="/signup_gateway", tags=["signup_gateway"])
+app.include_router(signup_api.router, prefix="/signup", tags=["signup_gateway"])
+app.include_router(signin_api.router, prefix="/signin", tags=["signin_gateway"])
 
 
 # Middleware para establecer el idioma en cada request
@@ -39,7 +37,7 @@ app.add_middleware(LanguageMiddleware)
 # Configuración CORS si tu frontend está en otro dominio
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3001"],  # ajustar según deployment
+    allow_origins=["http://localhost:8000","http://localhost:3000","http://localhost:3001"],  # Ajustar según deployment
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

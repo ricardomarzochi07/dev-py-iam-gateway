@@ -1,15 +1,13 @@
-from fastapi import APIRouter, Depends, Response, Request, HTTPException
+from fastapi import APIRouter, Depends, Response, Request
 from app.core.cookies_config import CookiesConfig
 from app.core.environment_config import AppConfig
-from app.core.exceptions import ExternalServiceError, GenerationToken
 from app.core.exceptions_handlers import build_success_response
 from app.core.settings_config import load_config
 from buddybet_logmon_common.logger import get_logger
-from app.schemas.signup_schema_response import SignupResponse
-from app.schemas.signupsubmit_schema_request import SignupSubmitRequest
-from app.service.impl.signup_init_service_impl import SignupInitServiceImpl
-from app.service.impl.signup_submit_service_impl import SignupSubmitServiceImpl
+from app.schemas.signup_schemas.signup_schema_response import SignupResponse
+from app.schemas.signup_schemas.signupsubmit_schema_request import SignupSubmitRequest
 from buddybet_transactionmanager.http.transaction_http import HttpResponseSchema
+from app.service.iam.signin_services import SignupServiceImpl
 
 router = APIRouter()
 logger = get_logger()
@@ -23,10 +21,10 @@ logger = get_logger()
                        404: {"description": "Not Found.", }, }, )
 async def signup_init(response: Response, config: AppConfig = Depends(load_config)):
     logger.info("Execute Request - signup_init")
-    signupInit_Service = SignupInitServiceImpl(config)
+    signupInit_Service = SignupServiceImpl(config)
     signupInitDTO = signupInit_Service.orchestrate_signup_init()
     CookiesConfig.set_csrf_cookie(response, csrf_token=signupInitDTO.jwt_csrf)
-    return build_success_response(e=GenerationToken, data=signupInitDTO)
+    return build_success_response(message_key="generation_token", data=signupInitDTO)
 
 
 @router.post("/signup/submit",
@@ -40,7 +38,7 @@ async def signup_submit(signup_request: SignupSubmitRequest,
                         request: Request,
                         config: AppConfig = Depends(load_config)):
     logger.info("Execute Request - signup_submit")
-    signupService = SignupSubmitServiceImpl(config)
+    signupService = SignupServiceImpl(config)
     response = signupService.orchestrate_signup_submit(signup_request, request.cookies)
     print("RESPONSE ", response)
     return response

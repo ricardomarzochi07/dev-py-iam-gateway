@@ -1,4 +1,8 @@
 signup_gateway_env:
+  bff_service_domain: https://localhost:8001
+  idp_service_url: https://localhost:9443
+  authcode_clientid_idp: WYYfij1MQgCL2KRMyEViboOfjEsa
+  callback_idp_service: http://localhost:8001/signin/auth/callback
   key_recaptcha_secret: 6Lf8hLwrAAAAAMSaecnrZZByq-J26VsnV3vagsHJ
   key_recaptcha_int_secret: 6Lf8hLwrAAAAAAh7WjwO8i44POTon6neRC1xP3H6
   recaptcha_google_service_url: https://www.google.com/recaptcha/api/siteverify

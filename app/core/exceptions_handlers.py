@@ -1,30 +1,72 @@
 # exceptions_handlers.py
-from fastapi import Request
+from fastapi import Request, FastAPI
 from fastapi.responses import JSONResponse
-from buddybet_transactionmanager.http.transaction_http import HttpResponseSchema
-from app.core.exceptions import SignupGatewayError, SignupGatewaySuccess
-from app.core.i18n_instance import i18n
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from http import HTTPStatus
 from typing import TypeVar
+
+from buddybet_transactionmanager.http.transaction_http import HttpResponseSchema
+from app.core.exceptions import OperationStatus
+from app.core.i18n_instance import i18n
 
 T = TypeVar('T')
 
 
-def register_exception_handlers(app):
-    @app.exception_handler(SignupGatewayError)
-    async def signup_gateway_exception_handler(request: Request, exc: SignupGatewayError):
+def register_exception_handlers(app: FastAPI):
+
+    @app.exception_handler(OperationStatus)
+    async def operation_status_handler(request: Request, exc: OperationStatus):
         message = i18n.gettext(exc.message_key)
-        response_schema = HttpResponseSchema(
+        schema = HttpResponseSchema(
             status_response=False,
             status_code=exc.status_code,
             message=message,
-            data=None
+            # Recomendado: agrega error_code en tu schema
+            # error_code=exc.message_key,
+            data=None,
         )
-        return JSONResponse(status_code=exc.status_code, content=response_schema.dict())
+        content = schema.dict() if hasattr(schema, "dict") else schema.model_dump()
+        return JSONResponse(status_code=exc.status_code, content=content)
+
+    @app.exception_handler(StarletteHTTPException)
+    async def http_exception_handler(request: Request, exc: StarletteHTTPException):
+        schema = HttpResponseSchema(
+            status_response=False,
+            status_code=exc.status_code,
+            message=str(exc.detail),
+            data=None,
+        )
+        content = schema.dict() if hasattr(schema, "dict") else schema.model_dump()
+        return JSONResponse(status_code=exc.status_code, content=content)
+
+    @app.exception_handler(RequestValidationError)
+    async def validation_exception_handler(request: Request, exc: RequestValidationError):
+        schema = HttpResponseSchema(
+            status_response=False,
+            status_code=HTTPStatus.UNPROCESSABLE_ENTITY.value,  # 422
+            message=i18n.gettext("validation_error"),
+            data=exc.errors(),  # útil para el front
+        )
+        content = schema.dict() if hasattr(schema, "dict") else schema.model_dump()
+        return JSONResponse(status_code=HTTPStatus.UNPROCESSABLE_ENTITY.value, content=content)
+
+    @app.exception_handler(Exception)
+    async def unhandled_exception_handler(request: Request, exc: Exception):
+        # Loguea exc con stacktrace aquí
+        schema = HttpResponseSchema(
+            status_response=False,
+            status_code=HTTPStatus.INTERNAL_SERVER_ERROR.value,
+            message=i18n.gettext("internal_server_error"),
+            data=None,
+        )
+        content = schema.dict() if hasattr(schema, "dict") else schema.model_dump()
+        return JSONResponse(status_code=HTTPStatus.INTERNAL_SERVER_ERROR.value, content=content)
 
 
-def build_success_response(e: SignupGatewaySuccess, data: T) -> HttpResponseSchema:
-    message = i18n.gettext(e.message_key)
+def build_success_response(message_key: str, data: T) -> HttpResponseSchema:
+    """Utilidad para respuestas 200 OK con i18n."""
+    message = i18n.gettext(message_key)
     return HttpResponseSchema(
         status_response=True,
         data=data,

@@ -63,6 +63,17 @@
     "es": "El usuario ya está registrado en el sistema.",
     "fr": "L'utilisateur est déjà enregistré dans le système.",
     "pt": "O usuário já se encontra cadastrado no sistema."
- }
-
+  },
+  "prelogin_invalid": {
+    "en": "Invalid or expired pre-login session. Please start the login process again.",
+    "es": "Sesión de preinicio inválida o expirada. Por favor, inicia el proceso de inicio de sesión nuevamente.",
+    "fr": "Session de préconnexion invalide ou expirée. Veuillez recommencer le processus de connexion.",
+    "pt": "Sessão de pré-login inválida ou expirada. Por favor, inicie novamente o processo de login."
+  },
+  "code_exchange": {
+    "en": "Authorization code exchange failed. Please try again.",
+    "es": "El intercambio del código de autorización falló. Por favor, inténtalo de nuevo.",
+    "fr": "L’échange du code d’autorisation a échoué. Veuillez réessayer.",
+    "pt": "A troca do código de autorização falhou. Por favor, tente novamente."
+  }
 }

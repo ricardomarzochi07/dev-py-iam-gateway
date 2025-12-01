@@ -1,4 +1,3 @@
-from fastapi import Response
 from pydantic import BaseModel
 
 
@@ -9,3 +8,4 @@ class CookieDto(BaseModel):
     samesite: str
     secure: bool
     max_age: int
+    path: str

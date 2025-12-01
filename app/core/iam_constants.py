@@ -9,3 +9,5 @@ class IAMConstants:
     DEV_ENV = "dev"
     PRE_ENV = "pre"
     PROD_ENV = "prod"
+    SESSION_COOKIE_NAME = "BFF_SESSION"
+    SESSION_TTL_SECONDS = 3600  #1h
